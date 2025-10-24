@@ -330,6 +330,7 @@
                 <button class="tab active" onclick="switchTab('pending')">Pending Responses (8)</button>
                 <button class="tab" onclick="switchTab('recent')">Recent Activity</button>
                 <button class="tab" onclick="switchTab('analytics')">Analytics</button>
+                <button class="tab" onclick="switchTab('setup')">API & Webhook Setup</button>
             </div>
 
             <!-- Pending Responses Tab -->
@@ -520,6 +521,156 @@
                         <div class="response-text">
                             Dear Michael, Thank you for your review! We're delighted Mondrian South Beach met your business travel needs. Our reliable WiFi and productive workspaces are designed with professionals like you in mind. We look forward to hosting you on your next Miami business trip! Warm regards, Mondrian Team
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API & Webhook Setup Tab -->
+            <div id="setup" class="tab-content">
+                <h2>🔌 API & Integration Architecture</h2>
+                <p style="color: #64748b; margin-bottom: 30px;">How the system monitors reviews across platforms - using realistic, proven methods.</p>
+
+                <h3 style="margin-bottom: 20px;">Platform Integration Methods</h3>
+
+                <div style="background: var(--light); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <span class="platform-badge google">Google</span>
+                        <strong style="font-size: 1.1rem;">Real-Time via Google Cloud Pub/Sub</strong>
+                        <span style="background: #d1fae5; color: #065f46; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">REAL-TIME</span>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #4285f4;">
+                        <code style="color: var(--dark); display: block; margin-bottom: 10px;">Google Business Profile API → Cloud Pub/Sub → Your System</code>
+                        <p style="color: #64748b; margin-bottom: 10px;">✅ <strong>True real-time notifications</strong> when new reviews are posted</p>
+                        <p style="color: #64748b; margin-bottom: 10px;">✅ Supports new reviews, Q&As, photos, and updates</p>
+                        <p style="color: #64748b; margin-bottom: 10px;">📋 Requires: Google Cloud Platform account + Pub/Sub topic setup</p>
+                        <p style="color: #64748b;">⏱️ <strong>Latency:</strong> 1-5 minutes from review post to notification</p>
+                    </div>
+                </div>
+
+                <div style="background: var(--light); padding: 25px; border-radius: 10px; margin-bottom: 20px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <span class="platform-badge tripadvisor">TripAdvisor</span>
+                        <strong style="font-size: 1.1rem;">Periodic Polling via API</strong>
+                        <span style="background: #fef3c7; color: #92400e; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">POLLING</span>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #00af87;">
+                        <code style="color: var(--dark); display: block; margin-bottom: 10px;">TripAdvisor Content API → Poll every 2 hours → Check for new reviews</code>
+                        <p style="color: #64748b; margin-bottom: 10px;">⚠️ <strong>No webhook support</strong> - must poll periodically</p>
+                        <p style="color: #64748b; margin-bottom: 10px;">🔑 Requires: TripAdvisor Content API partnership (approval required)</p>
+                        <p style="color: #64748b; margin-bottom: 10px;">🔄 <strong>Poll frequency:</strong> Every 2 hours to stay within rate limits</p>
+                        <p style="color: #64748b;">⏱️ <strong>Latency:</strong> Up to 2 hours from review post to detection</p>
+                    </div>
+                </div>
+
+                <div style="background: var(--light); padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+                        <span class="platform-badge booking">Booking.com</span>
+                        <strong style="font-size: 1.1rem;">Email Parsing + Periodic Polling</strong>
+                        <span style="background: #fef3c7; color: #92400e; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">HYBRID</span>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #003580;">
+                        <code style="color: var(--dark); display: block; margin-bottom: 10px;">Booking.com Email Notifications → Auto-parse → Trigger AI response</code>
+                        <p style="color: #64748b; margin-bottom: 10px;">⚠️ <strong>No public API</strong> - restricted to approved Connectivity Partners</p>
+                        <p style="color: #64748b; margin-bottom: 10px;">📧 Booking.com sends email notifications when new reviews are posted</p>
+                        <p style="color: #64748b; margin-bottom: 10px;">🤖 System parses notification emails automatically</p>
+                        <p style="color: #64748b;">⏱️ <strong>Latency:</strong> 5-15 minutes (depends on email delivery)</p>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 20px;">🔄 Notification & Approval Workflow</h3>
+                <div style="background: #eff6ff; border: 2px solid var(--primary); padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">🔔</div>
+                            <strong>New Review Detected</strong>
+                            <p style="color: #64748b; font-size: 0.85rem; margin-top: 5px;">Via Pub/Sub or polling</p>
+                        </div>
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">🤖</div>
+                            <strong>AI Generates Response</strong>
+                            <p style="color: #64748b; font-size: 0.85rem; margin-top: 5px;">30 seconds processing</p>
+                        </div>
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">📧</div>
+                            <strong>Email to Marketing</strong>
+                            <p style="color: #64748b; font-size: 0.85rem; margin-top: 5px;">With approval dashboard link</p>
+                        </div>
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">✅</div>
+                            <strong>Approve or Edit</strong>
+                            <p style="color: #64748b; font-size: 0.85rem; margin-top: 5px;">Full manual control</p>
+                        </div>
+                        <div style="text-align: center; padding: 15px;">
+                            <div style="font-size: 2rem; margin-bottom: 10px;">📤</div>
+                            <strong>Post Response</strong>
+                            <p style="color: #64748b; font-size: 0.85rem; margin-top: 5px;">Via platform APIs</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 20px;">🔒 Security & Authentication</h3>
+                <div style="background: var(--light); padding: 25px; border-radius: 10px; margin-bottom: 30px;">
+                    <div style="margin-bottom: 15px;">
+                        <strong>🔐 API Authentication</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px; color: #64748b; line-height: 1.8;">
+                            <li>Google: OAuth 2.0 with scope permissions</li>
+                            <li>TripAdvisor: API Key + OAuth token</li>
+                            <li>Booking.com: Email parsing (read-only IMAP access)</li>
+                        </ul>
+                    </div>
+                    <div style="margin-bottom: 15px;">
+                        <strong>🛡️ Security Measures</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px; color: #64748b; line-height: 1.8;">
+                            <li>All API keys stored encrypted at rest</li>
+                            <li>HTTPS only for all communications</li>
+                            <li>No credentials stored in browser/client-side</li>
+                            <li>Audit logs for all response approvals</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <strong>✅ Approval Controls</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px; color: #64748b; line-height: 1.8;">
+                            <li>Nothing posts without manual approval</li>
+                            <li>Multi-user approval workflow available</li>
+                            <li>Edit or reject any AI-generated response</li>
+                            <li>Instant kill switch to pause all automation</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h3 style="margin-bottom: 20px;">🏢 Enterprise-Grade Alternative: Third-Party Aggregators</h3>
+                <div style="background: #fef3c7; border: 2px solid #f59e0b; padding: 25px; border-radius: 10px;">
+                    <p style="margin-bottom: 15px;"><strong>For larger hotels or groups, consider established review aggregation platforms:</strong></p>
+                    <ul style="margin-left: 20px; color: #92400e; line-height: 2;">
+                        <li><strong>ReviewTrackers</strong> - Official partnerships with all major platforms</li>
+                        <li><strong>TrustYou</strong> - Used by Hilton, Marriott, IHG</li>
+                        <li><strong>Revinate</strong> - Hospitality-focused with reputation management</li>
+                        <li><strong>Reputation.com</strong> - Enterprise reputation platform</li>
+                    </ul>
+                    <p style="margin-top: 15px; color: #92400e;"><strong>💡 Advantage:</strong> These have official API partnerships, better rate limits, and comprehensive coverage. Our AI layer can integrate with their APIs for response generation.</p>
+                </div>
+
+                <h3 style="margin: 30px 0 20px;">⚡ Performance Benchmarks</h3>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px;">
+                    <div style="background: var(--light); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 2.5rem; color: var(--primary); font-weight: 700;">1-5 min</div>
+                        <div style="color: #64748b; margin-top: 5px;">Google Review Detection</div>
+                        <div style="font-size: 0.75rem; color: var(--success); margin-top: 5px;">✅ Real-time</div>
+                    </div>
+                    <div style="background: var(--light); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 2.5rem; color: var(--primary); font-weight: 700;">30 sec</div>
+                        <div style="color: #64748b; margin-top: 5px;">AI Response Generation</div>
+                        <div style="font-size: 0.75rem; color: var(--success); margin-top: 5px;">✅ Instant</div>
+                    </div>
+                    <div style="background: var(--light); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 2.5rem; color: var(--primary); font-weight: 700;">~2 hrs</div>
+                        <div style="color: #64748b; margin-top: 5px;">TripAdvisor Detection</div>
+                        <div style="font-size: 0.75rem; color: var(--warning); margin-top: 5px;">⚠️ Polling</div>
+                    </div>
+                    <div style="background: var(--light); padding: 20px; border-radius: 10px; text-align: center;">
+                        <div style="font-size: 2.5rem; color: var(--primary); font-weight: 700;">5-15 min</div>
+                        <div style="color: #64748b; margin-top: 5px;">Booking.com Email Parse</div>
+                        <div style="font-size: 0.75rem; color: var(--success); margin-top: 5px;">✅ Near real-time</div>
                     </div>
                 </div>
             </div>
