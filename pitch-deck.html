@@ -28,15 +28,37 @@
             width: 100%;
             max-width: 1200px;
             height: 90vh;
+            max-height: 90vh;
             border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            padding: 60px 80px;
+            padding: 40px 60px;
             position: relative;
             animation: slideIn 0.5s ease-out;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
         .slide.active {
             display: block;
+        }
+
+        /* Custom scrollbar */
+        .slide::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .slide::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 10px;
+        }
+
+        .slide::-webkit-scrollbar-thumb:hover {
+            background: #5568d3;
         }
 
         @keyframes slideIn {
@@ -274,6 +296,400 @@
             font-size: 0.9rem;
             color: #94a3b8;
             margin-top: 10px;
+        }
+
+        /* Table responsiveness */
+        .table-wrapper {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        table {
+            min-width: 600px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .slide {
+                padding: 40px 50px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.8rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+
+            .price-value {
+                font-size: 3rem;
+            }
+
+            .big-number {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .slide-container {
+                padding: 20px;
+            }
+
+            .slide {
+                padding: 30px 40px;
+                height: 92vh;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            h2 {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                font-size: 1.2rem;
+            }
+
+            p, li {
+                font-size: 1rem;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .grid-3 {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .navigation {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .nav-btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+
+            .price-value {
+                font-size: 2.5rem;
+            }
+
+            .big-number {
+                font-size: 3rem;
+            }
+
+            .emoji {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide-container {
+                padding: 10px;
+            }
+
+            .slide {
+                padding: 25px 30px;
+                height: 94vh;
+                border-radius: 15px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+                margin-bottom: 15px;
+            }
+
+            h2 {
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+                border-bottom: 3px solid #667eea;
+            }
+
+            h3 {
+                font-size: 1.1rem;
+                margin: 15px 0 10px 0;
+            }
+
+            p, li {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                margin-bottom: 10px;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 25px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+
+            .highlight, .success-box {
+                padding: 20px;
+            }
+
+            .grid-2, .grid-3 {
+                gap: 15px;
+            }
+
+            ul {
+                margin-left: 20px;
+            }
+
+            .price-value {
+                font-size: 2rem;
+                margin: 15px 0;
+            }
+
+            .price-card {
+                padding: 25px;
+            }
+
+            .price-details {
+                font-size: 0.9rem;
+            }
+
+            .tech-stack {
+                font-size: 0.85rem;
+                padding: 12px 15px;
+            }
+
+            .flow-step {
+                padding: 10px 15px;
+                font-size: 0.8rem;
+                margin: 5px 3px;
+            }
+
+            .arrow {
+                font-size: 1.5rem;
+                margin: 0 5px;
+            }
+
+            .big-number {
+                font-size: 2.5rem;
+            }
+
+            .emoji {
+                font-size: 2rem;
+            }
+
+            table {
+                font-size: 0.85rem;
+            }
+
+            th, td {
+                padding: 10px 8px;
+            }
+
+            .slide-number {
+                top: 20px;
+                right: 25px;
+                padding: 6px 15px;
+                font-size: 0.85rem;
+            }
+
+            .logo {
+                bottom: 20px;
+                left: 25px;
+                font-size: 0.8rem;
+            }
+
+            .navigation {
+                bottom: 15px;
+                right: 15px;
+                gap: 10px;
+            }
+
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.85rem;
+            }
+
+            .diagram {
+                padding: 20px;
+            }
+
+            .roi-grid {
+                gap: 20px;
+            }
+
+            .stats-grid {
+                gap: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slide-container {
+                padding: 5px;
+            }
+
+            .slide {
+                padding: 20px;
+                height: 96vh;
+                border-radius: 10px;
+            }
+
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            h2 {
+                font-size: 1.2rem;
+                margin-bottom: 12px;
+            }
+
+            h3 {
+                font-size: 1rem;
+            }
+
+            p, li {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+
+            .card {
+                padding: 15px;
+            }
+
+            .highlight, .success-box {
+                padding: 15px;
+            }
+
+            .price-value {
+                font-size: 1.8rem;
+            }
+
+            .price-card {
+                padding: 20px;
+            }
+
+            .price-card h3 {
+                font-size: 1.2rem;
+            }
+
+            .big-number {
+                font-size: 2rem;
+            }
+
+            .emoji {
+                font-size: 1.8rem;
+            }
+
+            .tech-stack {
+                font-size: 0.75rem;
+                padding: 10px 12px;
+            }
+
+            .flow-step {
+                padding: 8px 12px;
+                font-size: 0.7rem;
+                margin: 5px 2px;
+                display: block;
+                margin-bottom: 10px;
+            }
+
+            .arrow {
+                display: block;
+                font-size: 1.5rem;
+                margin: 5px 0;
+                transform: rotate(90deg);
+            }
+
+            table {
+                font-size: 0.75rem;
+            }
+
+            th, td {
+                padding: 8px 5px;
+            }
+
+            .slide-number {
+                top: 15px;
+                right: 15px;
+                padding: 5px 12px;
+                font-size: 0.75rem;
+            }
+
+            .logo {
+                bottom: 15px;
+                left: 15px;
+                font-size: 0.7rem;
+            }
+
+            .navigation {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                gap: 8px;
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                width: 100%;
+                padding: 12px;
+                font-size: 0.85rem;
+            }
+
+            .grid-2, .grid-3 {
+                gap: 12px;
+            }
+        }
+
+        /* Landscape mobile adjustments */
+        @media (max-height: 600px) and (orientation: landscape) {
+            .slide {
+                height: 96vh;
+            }
+
+            h1 {
+                font-size: 1.6rem;
+                margin-bottom: 10px;
+            }
+
+            h2 {
+                font-size: 1.3rem;
+                margin-bottom: 12px;
+            }
+
+            h3 {
+                font-size: 1rem;
+                margin: 10px 0 8px 0;
+            }
+
+            p, li {
+                font-size: 0.85rem;
+                line-height: 1.4;
+                margin-bottom: 8px;
+            }
+
+            .emoji {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .card, .highlight, .success-box {
+                padding: 12px;
+            }
         }
     </style>
 </head>
@@ -723,16 +1139,17 @@
             <h2>AI vs Human Staff: Performance Comparison</h2>
             <p class="subtitle" style="font-size: 1rem;">It's not just cheaper—it's objectively better</p>
 
-            <table style="margin-top: 30px; font-size: 1rem;">
-                <thead>
-                    <tr>
-                        <th style="width: 30%;">Metric</th>
-                        <th style="background: #fef3c7;">👤 Human Staff</th>
-                        <th style="background: #d1fae5;">🤖 AI Assistant</th>
-                        <th>Winner</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="table-wrapper">
+                <table style="margin-top: 30px; font-size: 1rem;">
+                    <thead>
+                        <tr>
+                            <th style="width: 30%;">Metric</th>
+                            <th style="background: #fef3c7;">👤 Human Staff</th>
+                            <th style="background: #d1fae5;">🤖 AI Assistant</th>
+                            <th>Winner</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <tr>
                         <td><strong>Response Time</strong></td>
                         <td>2.5 days average<br><span style="font-size: 0.85rem; color: #64748b;">Depends on workload</span></td>
@@ -788,7 +1205,8 @@
                         <td style="font-size: 1.5rem;">🤝</td>
                     </tr>
                 </tbody>
-            </table>
+                </table>
+            </div>
 
             <div class="success-box" style="margin-top: 30px;">
                 <strong>🏆 Verdict:</strong> AI wins 7 out of 9 categories. Same cost as human staff, but with superior speed, consistency, availability, and multilingual support. The perfect assistant—humans provide final approval and emotional nuance.
@@ -804,12 +1222,13 @@
 
             <div class="card" style="margin-top: 30px; background: #1e293b; color: white;">
                 <h3 style="color: white;">Recommended Server Specifications</h3>
-                <table style="margin-top: 20px; color: white;">
-                    <tr>
-                        <th style="color: white; background: #334155;">Component</th>
-                        <th style="color: white; background: #334155;">Specification</th>
-                        <th style="color: white; background: #334155;">Purpose</th>
-                    </tr>
+                <div class="table-wrapper">
+                    <table style="margin-top: 20px; color: white;">
+                        <tr>
+                            <th style="color: white; background: #334155;">Component</th>
+                            <th style="color: white; background: #334155;">Specification</th>
+                            <th style="color: white; background: #334155;">Purpose</th>
+                        </tr>
                     <tr>
                         <td><strong>GPU</strong></td>
                         <td>NVIDIA RTX 4060 Ti (16GB)</td>
@@ -835,7 +1254,8 @@
                         <td>Gigabit Ethernet</td>
                         <td>API communication</td>
                     </tr>
-                </table>
+                    </table>
+                </div>
             </div>
 
             <div class="grid-3" style="margin-top: 30px;">
@@ -1055,17 +1475,18 @@
             <div class="slide-number">14 / 17</div>
             <h2>3-Year Cost Comparison</h2>
 
-            <table style="margin-top: 40px; font-size: 1rem;">
-                <thead>
-                    <tr>
-                        <th>Solution</th>
-                        <th>Year 1</th>
-                        <th>Year 2</th>
-                        <th>Year 3</th>
-                        <th>3-Year Total</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div class="table-wrapper">
+                <table style="margin-top: 40px; font-size: 1rem;">
+                    <thead>
+                        <tr>
+                            <th>Solution</th>
+                            <th>Year 1</th>
+                            <th>Year 2</th>
+                            <th>Year 3</th>
+                            <th>3-Year Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                     <tr style="background: #d1fae5;">
                         <td><strong>Our Solution (Local LLM)</strong></td>
                         <td>$33,600</td>
@@ -1095,7 +1516,8 @@
                         <td><strong>$75,600</strong></td>
                     </tr>
                 </tbody>
-            </table>
+                </table>
+            </div>
 
             <div class="grid-2" style="margin-top: 40px;">
                 <div class="card">
