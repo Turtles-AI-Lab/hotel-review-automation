@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Mondrian South Beach - AI Review Response Demo">
+    <title>Review Response System | Mondrian South Beach</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --mondrian-navy: #1a1f3a;
+            --mondrian-gold: #d4af37;
+            --mondrian-cream: #f8f6f0;
+            --mondrian-gray: #4a5568;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+
+        body {
+            font-family: 'Playfair Display', 'Georgia', serif;
+            background: var(--mondrian-cream);
+            color: var(--mondrian-navy);
+        }
+
+        header {
+            background: var(--mondrian-navy);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            border-bottom: 4px solid var(--mondrian-gold);
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            color: var(--mondrian-gold);
+        }
+
+        .tagline {
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .stats-bar {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            border-top: 3px solid var(--mondrian-gold);
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--mondrian-navy);
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--mondrian-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--mondrian-navy);
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--mondrian-gold);
+        }
+
+        .review-card {
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            border-left: 5px solid var(--mondrian-gold);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .review-meta {
+            font-family: 'Lato', sans-serif;
+        }
+
+        .platform-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .tripadvisor { background: #00af87; color: white; }
+        .google { background: #4285f4; color: white; }
+        .booking { background: #003580; color: white; }
+
+        .rating {
+            font-size: 1.3rem;
+            color: var(--mondrian-gold);
+            margin: 10px 0;
+        }
+
+        .guest-name {
+            font-weight: 600;
+            color: var(--mondrian-navy);
+            margin-top: 8px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .review-text {
+            background: var(--mondrian-cream);
+            padding: 25px;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-style: italic;
+            color: var(--mondrian-gray);
+            margin: 20px 0;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .ai-response-section {
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 2px solid var(--mondrian-gold);
+        }
+
+        .ai-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: var(--mondrian-navy);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .ai-badge {
+            background: var(--mondrian-navy);
+            color: var(--mondrian-gold);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        .response-text {
+            background: #f0f4f8;
+            padding: 25px;
+            border-radius: 8px;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: var(--mondrian-navy);
+            border-left: 3px solid var(--mondrian-navy);
+            font-family: 'Lato', sans-serif;
+        }
+
+        .signature {
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #cbd5e0;
+            font-style: italic;
+            color: var(--mondrian-navy);
+            font-weight: 600;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: 'Lato', sans-serif;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-approve {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-approve:hover {
+            background: #059669;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-edit {
+            background: var(--mondrian-gold);
+            color: var(--mondrian-navy);
+        }
+
+        .btn-edit:hover {
+            background: #c9a234;
+        }
+
+        .btn-reject {
+            background: #e2e8f0;
+            color: var(--mondrian-navy);
+        }
+
+        .btn-reject:hover {
+            background: #cbd5e0;
+        }
+
+        .status-badge {
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            font-family: 'Lato', sans-serif;
+        }
+
+        .pending-badge {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .approved-badge {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .roi-section {
+            background: linear-gradient(135deg, var(--mondrian-navy) 0%, #2d3748 100%);
+            color: white;
+            padding: 50px 40px;
+            border-radius: 12px;
+            margin: 60px 0;
+            text-align: center;
+        }
+
+        .roi-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--mondrian-gold);
+        }
+
+        .roi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .roi-item {
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            border: 1px solid var(--mondrian-gold);
+        }
+
+        .roi-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--mondrian-gold);
+            margin-bottom: 10px;
+        }
+
+        .roi-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            font-family: 'Lato', sans-serif;
+        }
+
+        footer {
+            background: var(--mondrian-navy);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+            border-top: 3px solid var(--mondrian-gold);
+        }
+
+        footer p {
+            opacity: 0.8;
+            font-family: 'Lato', sans-serif;
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .stats-bar {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .review-card {
+                padding: 25px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo">MONDRIAN</div>
+        <div class="tagline">SOUTH BEACH • MIAMI</div>
+    </header>
+
+    <div class="container">
+        <!-- Stats Dashboard -->
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-value">24</div>
+                <div class="stat-label">New Reviews (7 Days)</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Pending Approval</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">95%</div>
+                <div class="stat-label">Response Rate</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">4.2 hrs</div>
+                <div class="stat-label">Avg Response Time</div>
+            </div>
+        </div>
+
+        <h2 class="section-title">Reviews Awaiting Your Approval</h2>
+
+        <!-- Review 1: Critical - Roach Issue -->
+        <div class="review-card">
+            <div class="review-header">
+                <div class="review-meta">
+                    <span class="platform-badge tripadvisor">TripAdvisor</span>
+                    <div class="rating">★☆☆☆☆</div>
+                    <div class="guest-name">Jessica T. • Boston, MA • July 22, 2025</div>
+                </div>
+                <span class="status-badge pending-badge">PENDING APPROVAL</span>
+            </div>
+
+            <div class="review-text">
+                "Found a large roach in our room the first night. When we reported it, they offered to move us but the next room had issues too. Finally at 11pm they told us to move our luggage AGAIN or cancel. We cancelled and found another hotel. Completely unacceptable for a luxury property. Management needs to get serious about pest control and guest service recovery."
+            </div>
+
+            <div class="ai-response-section">
+                <div class="ai-label">
+                    <span class="ai-badge">AI-GENERATED RESPONSE</span>
+                    <span style="font-size: 0.85rem; color: #64748b;">Ready in 2.3 seconds</span>
+                </div>
+
+                <div class="response-text">
+                    Dear Jessica,<br><br>
+                    I am deeply sorry for this unacceptable experience. Finding a pest in your room and then being subjected to multiple room changes late at night is completely inexcusable, especially at a luxury property.<br><br>
+                    You are absolutely right that we need to do better—both in pest control and in service recovery. Your experience shows a failure at multiple levels, and I take full responsibility. We are immediately implementing enhanced pest control protocols and retraining our team on proper guest recovery procedures.<br><br>
+                    While I understand you found alternative accommodations, I would like to personally make this right. Please contact me directly at gm@mondriansouthbeach.com so I can discuss how we can restore your trust, including a full refund and complimentary future stay.<br><br>
+                    <div class="signature">
+                        My sincerest apologies,<br>
+                        The Mondrian Family
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-approve" onclick="approveReview(this)">✓ Approve & Post</button>
+                    <button class="btn-edit" onclick="alert('Opens editor to customize response')">✏️ Edit Response</button>
+                    <button class="btn-reject" onclick="alert('Rejected - AI will draft new response')">✗ Reject & Redraft</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review 2: Positive - Staff Praise -->
+        <div class="review-card">
+            <div class="review-header">
+                <div class="review-meta">
+                    <span class="platform-badge google">Google</span>
+                    <div class="rating">★★★★★</div>
+                    <div class="guest-name">Carlos & Maria V. • Atlanta, GA • October 8, 2025</div>
+                </div>
+                <span class="status-badge pending-badge">PENDING APPROVAL</span>
+            </div>
+
+            <div class="review-text">
+                "Sandro and Luis made us feel like VIPs from the moment we arrived! Their genuine warmth and attention to detail transformed our anniversary trip into something truly special. The pool is incredible and the Biscayne Bay views are unmatched. These two team members are the heart of this hotel."
+            </div>
+
+            <div class="ai-response-section">
+                <div class="ai-label">
+                    <span class="ai-badge">AI-GENERATED RESPONSE</span>
+                    <span style="font-size: 0.85rem; color: #64748b;">Ready in 1.8 seconds</span>
+                </div>
+
+                <div class="response-text">
+                    Dear Carlos & Maria,<br><br>
+                    Happy anniversary! What a beautiful review to read! Sandro and Luis will be absolutely thrilled to hear they made your special celebration so memorable. We're incredibly fortunate to have them on our team, and they exemplify the hospitality we strive to deliver every day.<br><br>
+                    Thank you for recognizing their genuine care and attention. Your kind words will brighten their day and inspire our entire team.<br><br>
+                    We'd be honored to celebrate your next milestone with you at Mondrian South Beach. Please don't hesitate to reach out when you're planning your return!<br><br>
+                    <div class="signature">
+                        Warmest regards,<br>
+                        The Mondrian Family
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-approve" onclick="approveReview(this)">✓ Approve & Post</button>
+                    <button class="btn-edit" onclick="alert('Opens editor to customize response')">✏️ Edit Response</button>
+                    <button class="btn-reject" onclick="alert('Rejected - AI will draft new response')">✗ Reject & Redraft</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Review 3: Mixed - Cleaning Policy -->
+        <div class="review-card">
+            <div class="review-header">
+                <div class="review-meta">
+                    <span class="platform-badge booking">Booking.com</span>
+                    <div class="rating">★★★☆☆</div>
+                    <div class="guest-name">Amanda K. • San Francisco, CA • October 12, 2025</div>
+                </div>
+                <span class="status-badge pending-badge">PENDING APPROVAL</span>
+            </div>
+
+            <div class="review-text">
+                "Beautiful property with amazing views and great design. However, I was surprised to learn they only clean rooms every THREE days unless you specifically request it. For $400+ per night, I expect daily housekeeping as standard. Had to call twice for fresh towels. This policy doesn't match the luxury price point."
+            </div>
+
+            <div class="ai-response-section">
+                <div class="ai-label">
+                    <span class="ai-badge">AI-GENERATED RESPONSE</span>
+                    <span style="font-size: 0.85rem; color: #64748b;">Ready in 2.1 seconds</span>
+                </div>
+
+                <div class="response-text">
+                    Dear Amanda,<br><br>
+                    Thank you for your feedback, and I apologize for the confusion regarding our housekeeping services. You're absolutely right that we need to communicate our policies more clearly and ensure they align with guest expectations at our price point.<br><br>
+                    While our current policy offers service every three days (designed for sustainability and guest privacy preferences), we absolutely provide daily housekeeping upon request, and fresh towels are always available immediately. The fact that you had to call twice is unacceptable—our team should have proactively offered and delivered this.<br><br>
+                    We're reviewing how we communicate housekeeping options during check-in to ensure every guest knows daily service is available. Thank you for helping us improve. Please reach out to guestservices@mondriansouthbeach.com if you'd like to discuss this further.<br><br>
+                    <div class="signature">
+                        Best regards,<br>
+                        The Mondrian Family
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn-approve" onclick="approveReview(this)">✓ Approve & Post</button>
+                    <button class="btn-edit" onclick="alert('Opens editor to customize response')">✏️ Edit Response</button>
+                    <button class="btn-reject" onclick="alert('Rejected - AI will draft new response')">✗ Reject & Redraft</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ROI Section -->
+        <div class="roi-section">
+            <h2 class="roi-title">Your Return on Investment</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9; margin-bottom: 20px;">Based on 30-day pilot performance</p>
+
+            <div class="roi-grid">
+                <div class="roi-item">
+                    <div class="roi-value">15 hrs</div>
+                    <div class="roi-label">Saved Weekly</div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-value">95%</div>
+                    <div class="roi-label">Response Rate</div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-value">4.2 hrs</div>
+                    <div class="roi-label">Avg Response Time</div>
+                </div>
+                <div class="roi-item">
+                    <div class="roi-value">+0.2</div>
+                    <div class="roi-label">Star Rating Gain</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; padding: 30px; background: rgba(212, 175, 55, 0.15); border-radius: 10px; border: 2px solid var(--mondrian-gold);">
+                <div style="font-size: 1.3rem; margin-bottom: 10px;">Annual ROI</div>
+                <div style="font-size: 3rem; font-weight: 700; color: var(--mondrian-gold);">$25,200</div>
+                <div style="font-size: 1rem; opacity: 0.9; margin-top: 10px;">Time saved + reputation improvement + higher conversion rate</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p style="font-size: 1.2rem; margin-bottom: 10px; font-weight: 600; color: var(--mondrian-gold);">MONDRIAN SOUTH BEACH</p>
+        <p>AI-Powered Review Response System Demo</p>
+    </footer>
+
+    <script>
+        function approveReview(button) {
+            const card = button.closest('.review-card');
+            const badge = card.querySelector('.status-badge');
+
+            badge.textContent = 'POSTED SUCCESSFULLY';
+            badge.className = 'status-badge approved-badge';
+
+            button.textContent = '✓ Posted to Platform';
+            button.disabled = true;
+            button.style.opacity = '0.6';
+            button.style.cursor = 'not-allowed';
+
+            const actionButtons = card.querySelector('.action-buttons');
+            const otherButtons = actionButtons.querySelectorAll('button:not(.btn-approve)');
+            otherButtons.forEach(btn => btn.style.display = 'none');
+
+            setTimeout(() => {
+                const nextPending = document.querySelector('.review-card .pending-badge');
+                if (nextPending) {
+                    nextPending.closest('.review-card').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    alert('🎉 All reviews responded to! Excellent work.');
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
