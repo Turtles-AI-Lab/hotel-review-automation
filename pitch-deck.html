@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Review Automation - Technical Pitch Deck</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .slide {
+            display: none;
+            background: white;
+            width: 100%;
+            max-width: 1200px;
+            height: 90vh;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 60px 80px;
+            position: relative;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .slide.active {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #1e293b;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #1e293b;
+            margin-bottom: 30px;
+            border-bottom: 4px solid #667eea;
+            padding-bottom: 15px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: #475569;
+            margin: 25px 0 15px 0;
+        }
+
+        p, li {
+            font-size: 1.1rem;
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            margin-left: 30px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .card {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #667eea;
+        }
+
+        .highlight {
+            background: #fef3c7;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #f59e0b;
+            margin: 20px 0;
+        }
+
+        .success-box {
+            background: #d1fae5;
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #10b981;
+            margin: 20px 0;
+        }
+
+        .price-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .price-card h3 {
+            color: white;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .price-value {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin: 20px 0;
+        }
+
+        .price-details {
+            font-size: 1rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .tech-stack {
+            background: #1e293b;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        .navigation {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            z-index: 1000;
+        }
+
+        .nav-btn {
+            background: rgba(255,255,255,0.9);
+            border: none;
+            padding: 15px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: all 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            background: #667eea;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+
+        .logo {
+            position: absolute;
+            bottom: 30px;
+            left: 40px;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        th {
+            background: #f1f5f9;
+            color: #1e293b;
+            font-weight: 600;
+        }
+
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 100%;
+        }
+
+        .diagram {
+            background: #f8fafc;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 2px solid #e2e8f0;
+        }
+
+        .flow-step {
+            display: inline-block;
+            background: #667eea;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px 5px;
+            font-weight: 600;
+        }
+
+        .arrow {
+            display: inline-block;
+            font-size: 2rem;
+            color: #667eea;
+            margin: 0 10px;
+        }
+
+        .big-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .emoji {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .small-text {
+            font-size: 0.9rem;
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <!-- Slide 1: Title -->
+        <div class="slide active">
+            <div class="center-content">
+                <div class="emoji">🤖</div>
+                <h1>AI-Powered Review Response Automation</h1>
+                <p class="subtitle">Technical Architecture & Implementation Proposal</p>
+                <p class="subtitle" style="margin-top: 40px; font-size: 1.1rem;">Mondrian South Beach</p>
+                <p style="color: #94a3b8; margin-top: 60px;">Presented by Turtles AI Lab</p>
+            </div>
+            <div class="slide-number">1 / 15</div>
+        </div>
+
+        <!-- Slide 2: The Problem -->
+        <div class="slide">
+            <div class="slide-number">2 / 15</div>
+            <h2>The Problem We're Solving</h2>
+
+            <div class="grid-2" style="margin-top: 40px;">
+                <div>
+                    <div class="emoji">😰</div>
+                    <h3>Current State</h3>
+                    <ul>
+                        <li>42% response rate to reviews</li>
+                        <li>2.5 days average response time</li>
+                        <li>15+ hours/week staff time</li>
+                        <li>Inconsistent brand voice</li>
+                        <li>Critical reviews go unanswered</li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="emoji">✨</div>
+                    <h3>Desired State</h3>
+                    <ul>
+                        <li>95%+ response rate</li>
+                        <li>4 hours average response time</li>
+                        <li>2 hours/week staff oversight</li>
+                        <li>Consistent, on-brand responses</li>
+                        <li>Every review addressed promptly</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-top: 40px;">
+                <strong>💰 Annual Impact:</strong> $25,200 time savings + 0.2 star rating improvement + higher conversion from reviews
+            </div>
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 3: Solution Overview -->
+        <div class="slide">
+            <div class="slide-number">3 / 15</div>
+            <h2>Our Solution: Zero-Risk AI Assistant</h2>
+
+            <div class="diagram">
+                <div style="text-align: center; margin: 20px 0;">
+                    <div class="flow-step">Monitor Reviews</div>
+                    <span class="arrow">→</span>
+                    <div class="flow-step">AI Generates Response</div>
+                    <span class="arrow">→</span>
+                    <div class="flow-step">You Approve</div>
+                    <span class="arrow">→</span>
+                    <div class="flow-step">Auto-Post</div>
+                </div>
+            </div>
+
+            <div class="grid-3" style="margin-top: 40px;">
+                <div class="card">
+                    <h3>🔍 Smart Monitoring</h3>
+                    <p>Tracks TripAdvisor, Google, Booking.com 24/7</p>
+                </div>
+                <div class="card">
+                    <h3>🤖 AI Processing</h3>
+                    <p>Generates responses in 30 seconds using local LLM</p>
+                </div>
+                <div class="card">
+                    <h3>✅ You Control</h3>
+                    <p>100% manual approval before posting</p>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 40px;">
+                <strong>🔒 Zero Risk:</strong> No integration with Opera, Ivy, Canary, or Micros. External APIs only. You maintain complete control.
+            </div>
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 4: Tech Stack Overview -->
+        <div class="slide">
+            <div class="slide-number">4 / 15</div>
+            <h2>Technology Stack</h2>
+
+            <div class="grid-2" style="margin-top: 30px;">
+                <div>
+                    <h3>Frontend Dashboard</h3>
+                    <div class="tech-stack">React.js + TypeScript</div>
+                    <div class="tech-stack">Tailwind CSS</div>
+                    <div class="tech-stack">Real-time WebSocket updates</div>
+                    <p class="small-text">Modern, responsive approval interface accessible from any device</p>
+                </div>
+
+                <div>
+                    <h3>Backend Services</h3>
+                    <div class="tech-stack">Node.js + Express API</div>
+                    <div class="tech-stack">PostgreSQL database</div>
+                    <div class="tech-stack">Redis caching</div>
+                    <p class="small-text">Scalable architecture handles thousands of reviews</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h3>AI/ML Layer (Local Hosting)</h3>
+                <div class="tech-stack">Llama 3.2 (8B parameters) - Meta's open-source LLM</div>
+                <div class="tech-stack">Ollama runtime for local inference</div>
+                <div class="tech-stack">RAG (Retrieval-Augmented Generation) for brand voice</div>
+                <p class="small-text">Runs entirely on your hardware - no data sent to external AI services</p>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <h3>Integration Layer</h3>
+                <div class="tech-stack">Google Business Profile API (OAuth 2.0)</div>
+                <div class="tech-stack">TripAdvisor Content API</div>
+                <div class="tech-stack">Booking.com email parser (IMAP)</div>
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 5: Local vs Cloud LLM -->
+        <div class="slide">
+            <div class="slide-number">5 / 15</div>
+            <h2>Why Local LLM Hosting?</h2>
+
+            <div class="grid-2" style="margin-top: 30px;">
+                <div class="card">
+                    <h3>🏢 Local Hosting (Recommended)</h3>
+                    <ul style="font-size: 1rem;">
+                        <li><strong>Privacy:</strong> Guest data never leaves your network</li>
+                        <li><strong>Cost:</strong> $0/month AI usage fees</li>
+                        <li><strong>Speed:</strong> 2-5 second response time</li>
+                        <li><strong>Control:</strong> Full ownership of AI model</li>
+                        <li><strong>Compliance:</strong> GDPR/PCI-DSS friendly</li>
+                    </ul>
+                    <div class="highlight" style="margin-top: 20px; background: #d1fae5; border-left-color: #10b981;">
+                        <strong>Upfront:</strong> $3,500 hardware<br>
+                        <strong>Ongoing:</strong> $0/month
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>☁️ Cloud API (Alternative)</h3>
+                    <ul style="font-size: 1rem;">
+                        <li><strong>Privacy:</strong> Data sent to OpenAI/Anthropic</li>
+                        <li><strong>Cost:</strong> $200-$400/month usage fees</li>
+                        <li><strong>Speed:</strong> 3-8 second response time</li>
+                        <li><strong>Control:</strong> Dependent on vendor</li>
+                        <li><strong>Compliance:</strong> Requires BAA agreements</li>
+                    </ul>
+                    <div class="highlight" style="margin-top: 20px;">
+                        <strong>Upfront:</strong> $0 hardware<br>
+                        <strong>Ongoing:</strong> $200-400/month
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 30px;">
+                <strong>💡 Our Recommendation:</strong> Local hosting pays for itself in 12 months and ensures guest privacy. Perfect for luxury brands.
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 6: How LLMs Work (Simple) -->
+        <div class="slide">
+            <div class="slide-number">6 / 15</div>
+            <h2>How Large Language Models Work</h2>
+            <p class="subtitle" style="font-size: 1rem;">A simplified explanation for non-technical audiences</p>
+
+            <div class="diagram">
+                <h3 style="color: #1e293b; margin-bottom: 20px;">The Process</h3>
+                <div style="text-align: center;">
+                    <div class="flow-step" style="font-size: 0.9rem;">Input Review</div>
+                    <span class="arrow">→</span>
+                    <div class="flow-step" style="font-size: 0.9rem;">Break into Tokens</div>
+                    <span class="arrow">→</span>
+                    <div class="flow-step" style="font-size: 0.9rem;">AI Predicts Response</div>
+                    <span class="arrow">→</span>
+                    <div class="flow-step" style="font-size: 0.9rem;">Generate Text</div>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 30px;">
+                <div>
+                    <h3>🧠 What is an LLM?</h3>
+                    <p>A Large Language Model is like having an employee who has read millions of customer service interactions and learned patterns for responding professionally.</p>
+                    <p><strong>Key difference:</strong> It doesn't "understand" like humans do—it recognizes patterns and predicts what words should come next based on training.</p>
+                </div>
+
+                <div>
+                    <h3>📚 Training vs. Inference</h3>
+                    <p><strong>Training:</strong> Meta trained Llama on billions of text examples (already done - we just use it)</p>
+                    <p><strong>Inference:</strong> We give it a review and your brand guidelines, it generates a response (happens in 2-5 seconds)</p>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-top: 30px;">
+                <strong>🎯 Analogy:</strong> Think of it like autocomplete on your phone, but instead of predicting the next word, it predicts entire professional responses based on millions of examples.
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 7: Tokenization Explained -->
+        <div class="slide">
+            <div class="slide-number">7 / 15</div>
+            <h2>Understanding Tokenization</h2>
+
+            <div class="card" style="margin-top: 30px;">
+                <h3>What are Tokens?</h3>
+                <p>Tokens are chunks of text the AI uses to process language. Think of them as "building blocks" of words.</p>
+            </div>
+
+            <div class="diagram" style="margin-top: 30px; background: white; border: 3px solid #667eea; padding: 40px;">
+                <h3 style="text-align: center; color: #667eea; margin-bottom: 30px;">Example: Breaking Down a Review</h3>
+
+                <div style="background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 30px;">
+                    <p style="font-size: 1.2rem; color: #1e293b; margin-bottom: 20px;"><strong>Input Review:</strong></p>
+                    <p style="font-size: 1.1rem; font-style: italic;">"Great location, but the room was dirty."</p>
+                </div>
+
+                <div style="background: #eff6ff; padding: 20px; border-radius: 10px;">
+                    <p style="font-size: 1.2rem; color: #1e293b; margin-bottom: 20px;"><strong>Tokenized:</strong></p>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">Great</span>
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">location</span>
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">,</span>
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">but</span>
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">the</span>
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">room</span>
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">was</span>
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">dirty</span>
+                        <span style="background: #667eea; color: white; padding: 8px 15px; border-radius: 5px; font-weight: 600;">.</span>
+                    </div>
+                    <p class="small-text" style="margin-top: 20px; text-align: center;">9 tokens total (roughly 1 token per word, punctuation counts too)</p>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 30px;">
+                <div class="card">
+                    <h3>Why It Matters</h3>
+                    <p>• Average review: 50-150 tokens<br>
+                    • Average response: 100-200 tokens<br>
+                    • Processing: ~300 tokens per review</p>
+                </div>
+                <div class="card">
+                    <h3>Cost Impact</h3>
+                    <p><strong>Cloud APIs:</strong> Charge per token<br>
+                    <strong>Local hosting:</strong> Unlimited tokens, $0 cost</p>
+                </div>
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 8: Hardware Requirements -->
+        <div class="slide">
+            <div class="slide-number">8 / 15</div>
+            <h2>Hardware Requirements for Local Hosting</h2>
+
+            <div class="card" style="margin-top: 30px; background: #1e293b; color: white;">
+                <h3 style="color: white;">Recommended Server Specifications</h3>
+                <table style="margin-top: 20px; color: white;">
+                    <tr>
+                        <th style="color: white; background: #334155;">Component</th>
+                        <th style="color: white; background: #334155;">Specification</th>
+                        <th style="color: white; background: #334155;">Purpose</th>
+                    </tr>
+                    <tr>
+                        <td><strong>GPU</strong></td>
+                        <td>NVIDIA RTX 4060 Ti (16GB)</td>
+                        <td>Runs LLM inference</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CPU</strong></td>
+                        <td>Intel i5-13600K or AMD Ryzen 5 7600</td>
+                        <td>API server & database</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RAM</strong></td>
+                        <td>32GB DDR5</td>
+                        <td>Model loading & caching</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Storage</strong></td>
+                        <td>1TB NVMe SSD</td>
+                        <td>Model storage + database</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Network</strong></td>
+                        <td>Gigabit Ethernet</td>
+                        <td>API communication</td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="grid-3" style="margin-top: 30px;">
+                <div class="price-card">
+                    <h3>Hardware Cost</h3>
+                    <div class="price-value">$3,500</div>
+                    <p class="price-details">One-time purchase<br>Or use existing server</p>
+                </div>
+                <div class="price-card">
+                    <h3>Monthly Power</h3>
+                    <div class="price-value">~$40</div>
+                    <p class="price-details">Running 24/7<br>~300W average</p>
+                </div>
+                <div class="price-card">
+                    <h3>Performance</h3>
+                    <div class="price-value">2-5s</div>
+                    <p class="price-details">Response generation<br>Handles 500+ reviews/day</p>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-top: 30px;">
+                <strong>💡 Alternative:</strong> We can install on existing hotel server infrastructure if you have available GPU capacity or use a small dedicated mini PC.
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 9: Software Architecture -->
+        <div class="slide">
+            <div class="slide-number">9 / 15</div>
+            <h2>System Architecture Diagram</h2>
+
+            <div class="diagram" style="padding: 40px;">
+                <div style="text-align: center; margin-bottom: 40px;">
+                    <h3 style="color: #667eea; margin-bottom: 30px;">Data Flow</h3>
+
+                    <!-- Layer 1: Review Platforms -->
+                    <div style="margin-bottom: 30px;">
+                        <div style="background: #00af87; color: white; padding: 15px; border-radius: 10px; display: inline-block; margin: 0 10px; font-weight: 600;">TripAdvisor</div>
+                        <div style="background: #4285f4; color: white; padding: 15px; border-radius: 10px; display: inline-block; margin: 0 10px; font-weight: 600;">Google</div>
+                        <div style="background: #003580; color: white; padding: 15px; border-radius: 10px; display: inline-block; margin: 0 10px; font-weight: 600;">Booking.com</div>
+                        <p class="small-text">Review Platforms</p>
+                    </div>
+
+                    <div style="font-size: 2rem; color: #667eea; margin: 20px 0;">⬇️</div>
+
+                    <!-- Layer 2: API Integration -->
+                    <div style="margin-bottom: 30px;">
+                        <div style="background: #64748b; color: white; padding: 20px; border-radius: 10px; display: inline-block; min-width: 300px;">
+                            <strong>Integration Layer</strong><br>
+                            <span style="font-size: 0.9rem;">API polling + Email parsing</span>
+                        </div>
+                        <p class="small-text">Monitors for new reviews</p>
+                    </div>
+
+                    <div style="font-size: 2rem; color: #667eea; margin: 20px 0;">⬇️</div>
+
+                    <!-- Layer 3: Local AI Processing -->
+                    <div style="margin-bottom: 30px;">
+                        <div style="background: #667eea; color: white; padding: 20px; border-radius: 10px; display: inline-block; min-width: 300px;">
+                            <strong>🤖 Local AI Server (Your Hardware)</strong><br>
+                            <span style="font-size: 0.9rem;">Llama 3.2 8B + RAG + Brand Voice Training</span>
+                        </div>
+                        <p class="small-text">Generates response in 2-5 seconds</p>
+                    </div>
+
+                    <div style="font-size: 2rem; color: #667eea; margin: 20px 0;">⬇️</div>
+
+                    <!-- Layer 4: Approval Interface -->
+                    <div style="margin-bottom: 30px;">
+                        <div style="background: #f59e0b; color: white; padding: 20px; border-radius: 10px; display: inline-block; min-width: 300px;">
+                            <strong>✅ Approval Dashboard</strong><br>
+                            <span style="font-size: 0.9rem;">Email notification → Review → Approve/Edit/Reject</span>
+                        </div>
+                        <p class="small-text">You maintain 100% control</p>
+                    </div>
+
+                    <div style="font-size: 2rem; color: #667eea; margin: 20px 0;">⬇️</div>
+
+                    <!-- Layer 5: Post Response -->
+                    <div style="margin-bottom: 20px;">
+                        <div style="background: #10b981; color: white; padding: 20px; border-radius: 10px; display: inline-block; min-width: 300px;">
+                            <strong>📤 Auto-Post Response</strong><br>
+                            <span style="font-size: 0.9rem;">Published to original review platform</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 10: Security & Compliance -->
+        <div class="slide">
+            <div class="slide-number">10 / 15</div>
+            <h2>Security & Data Privacy</h2>
+
+            <div class="grid-2" style="margin-top: 30px;">
+                <div class="card">
+                    <h3>🔒 Data Security</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>All review data processed locally</li>
+                        <li>No guest data sent to external AI services</li>
+                        <li>Encrypted database storage (AES-256)</li>
+                        <li>HTTPS/TLS for all API communications</li>
+                        <li>API keys stored in encrypted vault</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>✅ Access Control</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Role-based access (Admin, Manager, Viewer)</li>
+                        <li>Multi-factor authentication (MFA)</li>
+                        <li>Audit logs for all approvals</li>
+                        <li>IP whitelist for dashboard access</li>
+                        <li>Session timeout after inactivity</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="grid-2" style="margin-top: 30px;">
+                <div class="card">
+                    <h3>📋 Compliance</h3>
+                    <ul style="font-size: 1rem;">
+                        <li><strong>GDPR:</strong> Data minimization, local processing</li>
+                        <li><strong>CCPA:</strong> No data sold or shared with 3rd parties</li>
+                        <li><strong>PCI-DSS:</strong> No payment card data processed</li>
+                        <li><strong>SOC 2:</strong> Infrastructure can be audited</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>🛡️ Kill Switch</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Instant pause button in dashboard</li>
+                        <li>Stop all monitoring immediately</li>
+                        <li>No responses posted without approval</li>
+                        <li>Full system control at all times</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 30px;">
+                <strong>🏨 Hospitality-Specific:</strong> We understand luxury hotel privacy standards. Guest reviews are public data, but we treat all processing with the same care as private guest information.
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 11: Pricing Structure -->
+        <div class="slide">
+            <div class="slide-number">11 / 15</div>
+            <h2>Investment & Pricing</h2>
+
+            <div class="grid-3" style="margin-top: 40px;">
+                <div class="price-card">
+                    <h3>Setup & Integration</h3>
+                    <div class="price-value">$8,500</div>
+                    <div class="price-details">
+                        • Platform API integrations<br>
+                        • Local LLM installation & training<br>
+                        • Brand voice customization<br>
+                        • Dashboard setup & training<br>
+                        • 2-week implementation
+                    </div>
+                </div>
+
+                <div class="price-card">
+                    <h3>Hardware (Optional)</h3>
+                    <div class="price-value">$3,500</div>
+                    <div class="price-details">
+                        • GPU server build<br>
+                        • Pre-configured & tested<br>
+                        • Rack-mount ready<br>
+                        • Or use existing server<br>
+                        • One-time cost
+                    </div>
+                </div>
+
+                <div class="price-card">
+                    <h3>Monthly Retainer</h3>
+                    <div class="price-value">$1,800</div>
+                    <div class="price-details">
+                        • System monitoring & maintenance<br>
+                        • Model updates & improvements<br>
+                        • 24/7 technical support<br>
+                        • Monthly performance reports<br>
+                        • Unlimited reviews
+                    </div>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-top: 40px; background: #d1fae5; border-left-color: #10b981; padding: 30px;">
+                <h3 style="color: #065f46; margin-top: 0;">Total First Year Investment</h3>
+                <div style="display: flex; justify-content: space-around; margin-top: 20px;">
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700; color: #065f46;">$33,600</div>
+                        <p style="color: #065f46;">With new hardware</p>
+                    </div>
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700; color: #065f46;">$30,100</div>
+                        <p style="color: #065f46;">Using existing server</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 30px;">
+                <strong>💰 ROI Comparison:</strong> $30,100 investment vs. $25,200 annual time savings = 14-month payback. Plus improved ratings, higher conversion, and better guest satisfaction.
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 12: Cost Comparison -->
+        <div class="slide">
+            <div class="slide-number">12 / 15</div>
+            <h2>3-Year Cost Comparison</h2>
+
+            <table style="margin-top: 40px; font-size: 1rem;">
+                <thead>
+                    <tr>
+                        <th>Solution</th>
+                        <th>Year 1</th>
+                        <th>Year 2</th>
+                        <th>Year 3</th>
+                        <th>3-Year Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="background: #d1fae5;">
+                        <td><strong>Our Solution (Local LLM)</strong></td>
+                        <td>$33,600</td>
+                        <td>$21,600</td>
+                        <td>$21,600</td>
+                        <td><strong>$76,800</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Cloud AI Solution</td>
+                        <td>$13,400</td>
+                        <td>$7,200</td>
+                        <td>$7,200</td>
+                        <td>$27,800</td>
+                    </tr>
+                    <tr>
+                        <td>Enterprise Platform (ReviewTrackers)</td>
+                        <td>$18,000</td>
+                        <td>$18,000</td>
+                        <td>$18,000</td>
+                        <td>$54,000</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Manual Staff Time (Current)</strong></td>
+                        <td>$25,200</td>
+                        <td>$25,200</td>
+                        <td>$25,200</td>
+                        <td><strong>$75,600</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="grid-2" style="margin-top: 40px;">
+                <div class="card">
+                    <h3>☁️ Why Not Cloud AI?</h3>
+                    <ul style="font-size: 0.95rem;">
+                        <li>Lower upfront, but ongoing costs forever</li>
+                        <li>Guest data sent to OpenAI/Anthropic servers</li>
+                        <li>Subject to price increases</li>
+                        <li>API rate limits during peak times</li>
+                        <li>Dependent on external service uptime</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: #d1fae5; border-left-color: #10b981;">
+                    <h3>🏢 Why Local Hosting?</h3>
+                    <ul style="font-size: 0.95rem;">
+                        <li>Higher upfront, but zero ongoing AI costs</li>
+                        <li>Complete data privacy & control</li>
+                        <li>Fixed costs, no surprises</li>
+                        <li>No rate limits, unlimited usage</li>
+                        <li>Works even if internet connection drops</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-top: 30px;">
+                <strong>🎯 Bottom Line:</strong> Local hosting costs slightly more upfront but provides superior privacy, control, and long-term value for luxury brands.
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 13: Implementation Timeline -->
+        <div class="slide">
+            <div class="slide-number">13 / 15</div>
+            <h2>Implementation Timeline</h2>
+
+            <div style="margin-top: 40px;">
+                <div class="card" style="margin-bottom: 20px; border-left-color: #10b981;">
+                    <h3>Week 1: Setup & Configuration</h3>
+                    <ul>
+                        <li>Hardware installation (if new server)</li>
+                        <li>Software stack deployment</li>
+                        <li>API integrations (Google, TripAdvisor, Booking.com)</li>
+                        <li>Database setup and security configuration</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="margin-bottom: 20px; border-left-color: #667eea;">
+                    <h3>Week 2: Training & Customization</h3>
+                    <ul>
+                        <li>AI model fine-tuning with your brand voice</li>
+                        <li>Import historical responses for learning</li>
+                        <li>Dashboard customization</li>
+                        <li>Team training sessions (marketing, management)</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="margin-bottom: 20px; border-left-color: #f59e0b;">
+                    <h3>Week 3-4: Pilot Testing</h3>
+                    <ul>
+                        <li>30-day supervised pilot with daily monitoring</li>
+                        <li>Fine-tune response quality based on feedback</li>
+                        <li>Performance metrics tracking</li>
+                        <li>Weekly check-in calls</li>
+                    </ul>
+                </div>
+
+                <div class="card" style="background: #d1fae5; border-left-color: #10b981;">
+                    <h3>Week 5+: Full Production</h3>
+                    <ul>
+                        <li>System runs autonomously with your approval workflow</li>
+                        <li>Monthly performance reports</li>
+                        <li>Ongoing support and model improvements</li>
+                        <li>24/7 monitoring and technical support</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 14: What's Included -->
+        <div class="slide">
+            <div class="slide-number">14 / 15</div>
+            <h2>What's Included in Your Package</h2>
+
+            <div class="grid-2" style="margin-top: 30px;">
+                <div>
+                    <h3>🚀 Setup & Onboarding</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Full system installation & configuration</li>
+                        <li>API integrations with all 3 platforms</li>
+                        <li>Custom brand voice training (20+ examples)</li>
+                        <li>Dashboard customization & branding</li>
+                        <li>Team training (up to 10 users)</li>
+                        <li>2-week white glove onboarding</li>
+                    </ul>
+
+                    <h3 style="margin-top: 30px;">🔧 Ongoing Support</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>24/7 technical support via email/phone</li>
+                        <li>System monitoring & uptime alerts</li>
+                        <li>Monthly performance reports</li>
+                        <li>Quarterly model improvements</li>
+                        <li>Software updates & security patches</li>
+                        <li>Priority bug fixes & feature requests</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3>📊 Analytics & Reporting</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Real-time dashboard with metrics</li>
+                        <li>Response rate tracking</li>
+                        <li>Sentiment analysis trends</li>
+                        <li>Time-to-response metrics</li>
+                        <li>Platform performance breakdown</li>
+                        <li>Monthly executive summary reports</li>
+                    </ul>
+
+                    <h3 style="margin-top: 30px;">🎓 Training & Documentation</h3>
+                    <ul style="font-size: 1rem;">
+                        <li>Video tutorials for all features</li>
+                        <li>Written documentation & SOPs</li>
+                        <li>Live training sessions (2 hours)</li>
+                        <li>Access to support knowledge base</li>
+                        <li>New user onboarding (anytime)</li>
+                        <li>Annual refresher training</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="success-box" style="margin-top: 30px;">
+                <strong>🎁 Bonus:</strong> First 90 days include unlimited consultation calls for optimization and fine-tuning to ensure you get maximum value.
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+
+        <!-- Slide 15: Next Steps -->
+        <div class="slide">
+            <div class="slide-number">15 / 15</div>
+            <h2>Next Steps</h2>
+
+            <div class="grid-2" style="margin-top: 50px;">
+                <div>
+                    <div class="emoji">📅</div>
+                    <h3>Option 1: Pilot Program</h3>
+                    <div class="card">
+                        <ul style="font-size: 1rem;">
+                            <li><strong>Duration:</strong> 30 days</li>
+                            <li><strong>Cost:</strong> $2,500 (applied to full contract)</li>
+                            <li><strong>Scope:</strong> Google reviews only</li>
+                            <li><strong>Deliverable:</strong> ROI report with metrics</li>
+                            <li><strong>Timeline:</strong> Start within 1 week</li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 15px; color: #64748b;">Perfect for validating AI quality and team workflow before full commitment.</p>
+                </div>
+
+                <div>
+                    <div class="emoji">🚀</div>
+                    <h3>Option 2: Full Implementation</h3>
+                    <div class="card" style="background: #d1fae5; border-left-color: #10b981;">
+                        <ul style="font-size: 1rem;">
+                            <li><strong>Duration:</strong> 4-5 weeks to production</li>
+                            <li><strong>Investment:</strong> $33,600 Year 1</li>
+                            <li><strong>Scope:</strong> All 3 platforms + full features</li>
+                            <li><strong>Deliverable:</strong> Turnkey system</li>
+                            <li><strong>Timeline:</strong> Kick off within 2 weeks</li>
+                        </ul>
+                    </div>
+                    <p style="margin-top: 15px; color: #065f46; font-weight: 600;">Fastest path to 95% response rate and time savings.</p>
+                </div>
+            </div>
+
+            <div class="highlight" style="margin-top: 50px; text-align: center; padding: 40px;">
+                <h3 style="font-size: 1.8rem; margin-bottom: 20px;">Let's Schedule a Technical Demo</h3>
+                <p style="font-size: 1.2rem; margin-bottom: 10px;">See the live dashboard, review actual AI-generated responses,</p>
+                <p style="font-size: 1.2rem;">and ask technical questions with our team.</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 50px;">
+                <p style="font-size: 1.3rem; font-weight: 600; color: #667eea;">Contact: Turtles AI Lab</p>
+                <p style="font-size: 1.1rem; color: #64748b; margin-top: 10px;">Thank you for your time!</p>
+            </div>
+
+            <div class="logo">Turtles AI Lab</div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <button class="nav-btn" onclick="previousSlide()">← Previous</button>
+        <button class="nav-btn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+
+        function showSlide(n) {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (n + totalSlides) % totalSlides;
+            slides[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function previousSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                previousSlide();
+            }
+        });
+
+        // Click to advance
+        document.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('nav-btn')) {
+                const rect = document.querySelector('.slide-container').getBoundingClientRect();
+                if (e.clientX > rect.left + rect.width / 2) {
+                    nextSlide();
+                } else {
+                    previousSlide();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
